@@ -3645,6 +3645,10 @@ public:
 
 namespace nme {}
 
+/*********************************************************************/
+/** Note: MinoMonsters uses this NMEAppDelegate, not the other one. **/
+/*********************************************************************/
+
 - (void) applicationDidFinishLaunching:(UIApplication *)application
 {
    UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
