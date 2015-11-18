@@ -3649,6 +3649,50 @@ namespace nme {}
 /** Note: MinoMonsters uses this NMEAppDelegate, not the other one. **/
 /*********************************************************************/
 
+// -- Begin method forwarding
+
+// Lime is an asshole and hides the UIApplicationDelegate from the developer.
+// "Fix" this problem by forwarding method calls through the NSNotificationCenter.
+// Fuck you, Lime.
+
+- (void) application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didRegisterUserNotificationSettings:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"notificationSettings" : notificationSettings }];
+}
+
+- (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didReceiveLocalNotification:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"notification" : notification }];
+}
+
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didRegisterForRemoteNotificationsWithDeviceToken:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"deviceToken" : deviceToken }];
+}
+
+- (void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didFailToRegisterForRemoteNotificationsWithError:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"error" : error }];
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didReceiveRemoteNotification:fetchCompletionHandler:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"userInfo" : userInfo, @"handler" : [handler copy] }];
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:didReceiveRemoteNotification:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"userInfo" : userInfo }];
+}
+
+// -- End method forwarding
+
 - (void) applicationDidFinishLaunching:(UIApplication *)application
 {
    UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
