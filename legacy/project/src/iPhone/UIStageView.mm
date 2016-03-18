@@ -3691,6 +3691,14 @@ namespace nme {}
                                                     userInfo:@{@"application" : application, @"userInfo" : userInfo }];
 }
 
+- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary *)options {
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"NMEAppDelegate application:openURL:options:"
+                                                      object:nil
+                                                    userInfo:@{@"application" : application, @"url" : url, @"options" : options }];
+   return YES;
+}
+
+
 // -- End method forwarding
 
 - (void) applicationDidFinishLaunching:(UIApplication *)application
